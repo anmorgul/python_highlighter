@@ -2,8 +2,10 @@
 file: __init__.py
 date: 12.12.2012
 author smith@example.com
-license: MIT"""
+license: MIT
+"""
 
+import re
 from flask import Flask, render_template, request, Markup
 
 
@@ -30,20 +32,18 @@ def create_app():
     def markup_text(text):
         """Markup given text.
         @:param text - string text to be marked
-        @:return marked text, e.g., <mark>highlighted text</mark>."""
-        result = text
-
-        # TODO: add an implementation
+        @:return marked text, e.g., <mark>highlighted text</mark>.
+        """
+        result = f'<mark>{text}</mark>'
 
         return result
 
     def highlight_text(text, expr):
         """Markup searched string in given text.
         @:param text - string text to be processed
-        @:return marked text, e.g., "sample text <mark>highlighted part</mark> rest of the text"."""
-        result = text
-
-        # TODO: add an implementation
+        @:return marked text, e.g., "sample text <mark>highlighted part</mark> rest of the text".
+        """
+        result = re.sub(f'({expr})', markup_text(r'\1'), text, flags=re.IGNORECASE)
 
         return result
 
